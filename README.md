@@ -21,7 +21,7 @@ O **Treino Chad** foi desenvolvido para me ajuda a organizar minha rotina de mus
 ## 🛠️ Tecnologias Utilizadas
 - **HTML5** — Estrutura semântica da aplicação.
 - **CSS3** — Estilização personalizada, layout responsivo e elementos visuais avançados.
-- **JavaScript ** — Manipulação do DOM e persistência dos dados de progresso.
+- **JavaScript** — Manipulação do DOM e persistência dos dados de progresso.
 
 ## 🚀 Como executar o projeto localmente
 
