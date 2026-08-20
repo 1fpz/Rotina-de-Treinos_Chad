@@ -2,7 +2,7 @@
 
 > Uma aplicação web interativa para acompanhamento de treinos, foco em rotinas, metas diárias de macros, água e treino com gamificação de conquistas fitness.
 
-![Preview do Treino Chad]( assets/preview.png ) <!-- Adicione uma imagem ou GIF do site rodando -->
+![Preview do Treino Chad](/main/images/chadexp.png) <!-- Adicione uma imagem ou GIF do site rodando -->
 
 ## 🔗 Deploy
 💻 **Acesse o projeto online:** (https://treinochad.netlify.app)
