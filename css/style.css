@@ -1,0 +1,363 @@
+:root {
+  --bg-color: #050505;
+  --card-bg: rgba(18, 18, 18, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #fcfcfc;
+  --text-secondary: #8e8e93;
+  --accent-primary: #0050A0; 
+  --accent-gradient: linear-gradient(135deg, #0050A0 0%, #002f6c 100%);
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --header-height: 70px;
+  --nav-height: 70px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(0, 80, 160, 0.2) 0%, transparent 50%);
+  z-index: -1;
+  animation: auraMove 15s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes auraMove {
+  0% { transform: translate(-5%, -5%); }
+  100% { transform: translate(5%, 5%); }
+}
+
+/* --- Layout --- */
+
+header {
+  min-height: var(--header-height);
+  padding: calc(15px + var(--safe-area-top)) 20px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8) 70%, transparent);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px 100px; /* Space for bottom nav */
+}
+
+nav {
+  height: calc(var(--nav-height) + var(--safe-area-bottom));
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid var(--glass-border);
+  padding-bottom: var(--safe-area-bottom);
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  color: var(--accent-primary);
+}
+
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+/* --- Components --- */
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 80, 160, 0.3);
+  box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 80, 160, 0.2);
+}
+
+.glass-card:active {
+  transform: scale(0.97);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.title-large {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.accent-text {
+  background: linear-gradient(90deg, #0050A0, #00d2ff, #0050A0);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 4s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(0, 80, 160, 0.3));
+  font-weight: 800;
+}
+
+@keyframes gradientMove {
+  to { background-position: 200% center; }
+}
+
+/* --- Dashboard --- */
+
+.dashboard-hero {
+  margin-top: 10px;
+}
+
+.progress-overview {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.progress-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.circular-progress {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 10px;
+  position: relative;
+}
+
+/* --- Workout View --- */
+
+.exercise-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.exercise-item:last-child {
+  border-bottom: none;
+}
+
+.exercise-info {
+  flex: 1;
+}
+
+.exercise-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.exercise-meta {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.checkbox-container {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--glass-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.checkbox-container.checked {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(0, 80, 160, 0.5);
+  transform: scale(1.1);
+}
+
+.checkbox-container:active {
+  transform: scale(0.9);
+}
+
+.checkbox-container.checked svg {
+  display: block;
+}
+
+.checkbox-container svg {
+  display: none;
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
+/* --- Water Tracker --- */
+
+.water-tracker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.water-bottle {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+.water-fill {
+  height: 100%;
+  background: #3b82f6;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.water-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-water {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --- Animations --- */
+
+@keyframes success-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.view-container {
+  display: none;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.view-container.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Success Overlay */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  flex-direction: column;
+}
+
+.success-content {
+  text-align: center;
+  animation: success-pop 0.5s ease-out;
+}
+
+.success-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+}
+
+/* --- Meta Gallery --- */
+.masonry-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.masonry-item {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: var(--card-bg);
+  aspect-ratio: 3/4; /* Maintains a consistent vertical look */
+}
+
+.masonry-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures photos fill the area nicely */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.masonry-item:active img {
+  transform: scale(1.1);
+}

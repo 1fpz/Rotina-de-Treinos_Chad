@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Chad Natural</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ChadNatural">
+  <link rel="apple-touch-icon" href="images/2964514.png">
+  <link rel="manifest" href="js/manifest.json">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div id="date-container">
+      <div id="current-day" class="accent-text" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">QUINTA-FEIRA</div>
+      <div id="current-date" class="text-secondary" style="font-size: 1.2rem; font-weight: 700; color: white;">23 DE ABRIL</div>
+    </div>
+    <div id="profile-pic" style="width: 40px; height: 40px; background: var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+      🗿
+    </div>
+  </header>
+
+  <main id="content">
+    <!-- View: Home -->
+    <div id="view-home" class="view-container active">
+      <div class="dashboard-hero">
+        <h1 class="title-large">Salve, <span class="accent-text">Chad</span></h1>
+        <p class="text-secondary">Pronto para a evolução de hoje?</p>
+      </div>
+
+      <div class="glass-card" style="margin-top: 25px; border-left: 4px solid var(--accent-primary);">
+        <p class="text-secondary" style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">Treino de Hoje</p>
+        <h2 id="today-workout-name" style="margin: 5px 0 15px;">Carregando...</h2>
+        <button onclick="switchView('workout')" style="background: var(--accent-primary); border: none; color: white; padding: 10px 20px; border-radius: 10px; font-weight: 700; width: 100%;">IR PARA TREINO</button>
+      </div>
+
+      <div class="progress-overview">
+        <div class="glass-card progress-stat" style="flex: 1;">
+          <p class="text-secondary" style="font-size: 0.7rem; font-weight: 700;">ÁGUA</p>
+          <div id="water-percent" class="title-large" style="margin: 5px 0;">0%</div>
+          <div class="water-bottle" style="height: 6px; margin: 0;">
+            <div id="water-fill-home" class="water-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="glass-card progress-stat" style="flex: 1;">
+          <p class="text-secondary" style="font-size: 0.7rem; font-weight: 700;">MACROS</p>
+          <div id="macro-percent" class="title-large" style="margin: 5px 0;">0%</div>
+          <div class="water-bottle" style="height: 6px; margin: 0;">
+            <div id="macro-fill-home" class="water-fill" style="width: 0%; background: #10b981;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <p class="text-secondary" style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 15px;">Vitaminas do Dia</p>
+        <div id="home-supps-list">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Workout -->
+    <div id="view-workout" class="view-container">
+      <h1 class="title-large" id="workout-view-title">Treino</h1>
+      <p class="text-secondary" id="workout-view-subtitle">Foco: Carga + Execução</p>
+      
+      <div id="exercise-list" style="margin-top: 20px;">
+        <!-- Dynamically populated -->
+      </div>
+
+      <div id="workout-complete-btn-container" style="margin-top: 30px;">
+        <button id="finish-workout-btn" class="glass-card" style="width: 100%; background: var(--accent-primary); color: white; font-weight: 800; font-size: 1.1rem; border: none; padding: 20px;">FINALIZAR TREINO 🔥</button>
+      </div>
+    </div>
+
+    <!-- View: Diet -->
+    <div id="view-diet" class="view-container">
+      <h1 class="title-large">Dieta &amp; Água</h1>
+      
+      <div class="glass-card" style="margin-top: 20px;">
+        <div class="water-tracker">
+          <p class="text-secondary" style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700;">Consumo de Água</p>
+          <div id="water-amount" style="font-size: 2.5rem; font-weight: 800; margin: 10px 0;">0.0<span style="font-size: 1rem; color: var(--text-secondary);"> / 4.0L</span></div>
+          <div class="water-bottle">
+            <div id="water-fill-main" class="water-fill"></div>
+          </div>
+          <div class="water-controls">
+            <button class="btn-water" onclick="addWater(0.25)">+250ml</button>
+            <button class="btn-water" onclick="addWater(0.5)">+500ml</button>
+            <button class="btn-water" onclick="resetWater()" style="border-color: rgba(239, 68, 68, 0.3); color: #ef4444;">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <p class="text-secondary" style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; margin-bottom: 20px;">Meta de Macros</p>
+        <div id="macro-list">
+          <!-- Protein -->
+          <div class="exercise-item">
+            <div class="exercise-info">
+              <div class="exercise-name">Proteína (160-170g)</div>
+              <div class="exercise-meta">Base do shape</div>
+            </div>
+            <div class="checkbox-container" onclick="toggleMacro('protein')" id="check-protein">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <!-- Fat -->
+          <div class="exercise-item">
+            <div class="exercise-info">
+              <div class="exercise-name">Gordura (55-65g)</div>
+              <div class="exercise-meta">Hormônios &amp; Saúde</div>
+            </div>
+            <div class="checkbox-container" onclick="toggleMacro('fat')" id="check-fat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+          <!-- Carbs -->
+          <div class="exercise-item">
+            <div class="exercise-info">
+              <div class="exercise-name">Carbo (130-170g)</div>
+              <div class="exercise-meta">Energia &amp; Cortisol</div>
+            </div>
+            <div class="checkbox-container" onclick="toggleMacro('carbs')" id="check-carbs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Plan -->
+    <div id="view-plan" class="view-container">
+      <h1 class="title-large">Plano Semanal</h1>
+      <p class="text-secondary">Visão geral da sua jornada</p>
+      
+      <div id="weekly-plan-list" style="margin-top: 20px;">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- View: Meta -->
+    <div id="view-meta" class="view-container">
+      <div class="dashboard-hero">
+        <h1 class="title-large accent-text">SEJA CHAD PORR@!</h1>
+        <p class="text-secondary" style="margin-top: 15px; font-size: 1.1rem; line-height: 1.6; font-weight: 500; color: white;">
+          O tempo vai passar do mesmo jeito. Você focado e tendo o shape ou continuando do jeito que está... <span class="accent-text" style="font-weight: 800;">A escolha é sua.</span>
+        </p>
+      </div>
+      
+      <div class="masonry-gallery">
+        <div class="masonry-item"><img src="images/meta1.jpg" alt="Shape 1"></div>
+        <div class="masonry-item"><img src="images/meta2.jpg" alt="Shape 2"></div>
+        <div class="masonry-item"><img src="images/meta3.jpg" alt="Shape 3"></div>
+        <div class="masonry-item"><img src="images/meta4.jpg" alt="Shape 4"></div>
+        <div class="masonry-item"><img src="images/meta5.jpg" alt="Shape 5"></div>
+        <div class="masonry-item"><img src="images/meta6.jpg" alt="Shape 6"></div>
+      </div>
+    </div>
+  </main>
+
+  <nav>
+    <a class="nav-item" onclick="switchView('workout')" id="nav-workout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.5 6.5l11 11"></path>
+        <path d="m21 21-1-1"></path>
+        <path d="m3 3 1 1"></path>
+        <path d="m18 22 4-4"></path>
+        <path d="m2 6 4-4"></path>
+        <path d="m3 10 7-7"></path>
+        <path d="m14 21 7-7"></path>
+      </svg>
+      <span>TREINO</span>
+    </a>
+    <a class="nav-item" onclick="switchView('diet')" id="nav-diet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <circle cx="12" cy="12" r="6"></circle>
+      </svg>
+      <span>DIETA</span>
+    </a>
+    <a class="nav-item active" onclick="switchView('home')" id="nav-home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>HOME</span>
+    </a>
+    <a class="nav-item" onclick="switchView('plan')" id="nav-plan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>PLANO</span>
+    </a>
+    <a class="nav-item" onclick="switchView('meta')" id="nav-meta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+      </svg>
+      <span>META</span>
+    </a>
+  </nav>
+
+  <!-- Success Overlay -->
+  <div id="success-overlay" class="success-overlay">
+    <div class="success-content">
+      <div class="success-icon">🔥</div>
+      <h2 class="title-large">TREINO COMPLETO!</h2>
+      <p class="text-secondary" style="margin: 10px 0 20px;">Você está mais perto do seu objetivo.</p>
+      <button onclick="closeSuccess()" class="glass-card" style="background: white; color: black; border: none; font-weight: 800; padding: 15px 30px;">VALEU!</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+
+
+</body></html>
